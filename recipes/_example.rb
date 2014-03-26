@@ -27,3 +27,9 @@ nginx_proxy 'secure-by-path.example.com' do
   ssl_key_path '/path/to/key.pem'
   ssl_certificate_path '/path/to/certificate.pem'
 end
+
+nginx_proxy 'redirect.example.com' do
+  ssl_key 'example.com'
+  url 'https://target.example.com'
+  redirect true
+end

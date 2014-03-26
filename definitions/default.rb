@@ -1,8 +1,6 @@
-define :nginx_proxy,
-       apache: false do
+define :nginx_proxy, apache: false, redirect: false do
   include_recipe 'nginx-proxy'
   params[:server_name] ||= params[:name]
-  params[:alias] = Array(params[:alias])
   if params[:apache]
     raise "apache specified with port or url" if params[:port] || params[:url]
     params[:url] = "http://127.0.0.1:#{node['nginx_proxy']['apache_port']}"
@@ -10,6 +8,7 @@ define :nginx_proxy,
     raise "both port and url specified"
   end
   params[:url] ||= "http://127.0.0.1:#{params[:port]}"
+  params[:redirect] = :permanent if params[:redirect] == true
 
   if params[:ssl_key]
     params[:ssl_key_path] ||= File.join(node['nginx_proxy']['ssl_key_dir'], "#{params[:ssl_key]}.key")
