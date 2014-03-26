@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
 
-# Nginx Proxy
-# =================
+include_recipe 'nginx'

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-require 'chefspec'
+require_relative './spec_helper'
 
 describe 'nginx-proxy::default' do
-  let(:chef_run) { ChefSpec::ChefRunner.new.converge 'nginx-proxy::default' }
-  it 'should do something' do
-    pending 'Your recipe examples go here.'
+  let(:chef_run) { ChefSpec::Runner.new }
+
+  it 'should install nginx' do
+    chef_run.converge(described_recipe)
+    expect(chef_run).to include_recipe('nginx::default')
   end
 end

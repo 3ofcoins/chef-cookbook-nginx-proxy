@@ -2,6 +2,7 @@
 site :opscode
 
 metadata
+cookbook 'apache2'              # recommended
 
 group :integration do
   cookbook "minitest-handler"
