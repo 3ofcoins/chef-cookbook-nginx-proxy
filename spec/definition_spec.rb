@@ -5,16 +5,6 @@ require_relative './spec_helper'
 describe 'nginx-proxy/definitions/default.rb' do
   let(:chef_run) { ChefSpec::Runner.new }
 
-  def expect_site(name, *contents)
-    if contents.empty?
-      expect(chef_run).to(render_file("/etc/nginx/sites-available/#{name}"))
-    else
-      contents.each do |content|
-        expect(chef_run).to(render_file("/etc/nginx/sites-available/#{name}").with_content(content))
-      end
-    end
-  end
-
   it 'should install nginx' do
     chef_run.converge('apache2', 'nginx-proxy::_example')
     expect(chef_run).to include_recipe('nginx-proxy::default')
