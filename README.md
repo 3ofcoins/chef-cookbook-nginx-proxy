@@ -5,7 +5,7 @@ Automatically set up Nginx as a proxy to backend application servers
 or Apache. Provides a definition to use in recipes, and automatically
 configures proxies based on attributes.
 
-This cookbook's home is at https://github.com/3ofcoins/nginx-proxy/
+This cookbook's home is at https://github.com/3ofcoins/chef-cookbook-nginx-proxy/
 
 Requirements
 ------------
