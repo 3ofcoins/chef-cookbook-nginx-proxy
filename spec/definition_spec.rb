@@ -6,7 +6,7 @@ describe 'nginx-proxy/definitions/default.rb' do
   let(:chef_run) { ChefSpec::Runner.new }
 
   it 'should install nginx' do
-    chef_run.converge('apache2', 'nginx-proxy::_example')
+    chef_run.converge('nginx-proxy::_example')
     expect(chef_run).to include_recipe('nginx-proxy::default')
 
     expect_site 'trivial.example.com',
