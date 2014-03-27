@@ -50,7 +50,7 @@ nginx_proxy 'salias.example.com' do
   aka 'salias1.example.com', ssl_key: 'example.com'
 end
 
-nginx_proxy 'salias-i.example.com' do
+nginx_proxy 'salias.example.com' do
   ssl_key 'example.com'
   aka 'salias.i.example.com', ssl_key: 'i.example.com'
 end

@@ -6,6 +6,7 @@ define :nginx_proxy, apache: false, redirect: false do
   if params[:apache]
     fail 'apache specified with port or url' if params[:port] || params[:url]
     params[:url] = "http://127.0.0.1:#{node['nginx_proxy']['apache_port']}"
+    include_recipe 'nginx-proxy::apache2'
   elsif params[:url] && params[:port]
     fail 'both port and url specified'
   end

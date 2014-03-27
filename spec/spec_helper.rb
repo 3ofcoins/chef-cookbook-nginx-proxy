@@ -2,6 +2,7 @@
 
 require 'chefspec'
 require 'chefspec/berkshelf'
+require 'chefspec/cacher'
 
 module Helpers
   def expect_site(name, *contents)
