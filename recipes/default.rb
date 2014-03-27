@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-include_recipe 'nginx'
+include_recipe 'nginx-proxy::setup'
 
 node['nginx_proxy']['proxies'].each do |site_name, options|
   options = case options
             when :apache, 'apache' then { apache: true }
-            when String, Numeric then { port: options.to_i }
+            when /^\d+$/, Numeric then { port: options.to_i }
+            when String then { url: options }
             else JSON[options.to_json] # json roundabout as a deep to_hash
             end
   nginx_proxy site_name do

@@ -22,6 +22,12 @@ describe 'nginx-proxy::default' do
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:8000;'
   end
 
+  it 'creates proxy given an URL as string' do
+    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = 'http://example.info'
+    chef_run.converge(described_recipe)
+    expect_site 'example.com', 'proxy_pass http://example.info;'
+  end
+
   it 'creates proxy to apache' do
     chef_run.node.set['nginx_proxy']['proxies']['example.com'] = 'apache'
     chef_run.converge(described_recipe)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 define :nginx_proxy, apache: false, redirect: false do
-  include_recipe 'nginx-proxy'
+  include_recipe 'nginx-proxy::setup'
   params[:server_name] ||= params[:name]
   if params[:apache]
     fail 'apache specified with port or url' if params[:port] || params[:url]
