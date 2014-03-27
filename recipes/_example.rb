@@ -33,3 +33,22 @@ nginx_proxy 'redirect.example.com' do
   url 'https://target.example.com'
   redirect true
 end
+
+nginx_proxy '1alias.example.com' do
+  url 'http://example.com'
+  aka 'alias1.example.com'
+end
+
+nginx_proxy '2alias.example.com' do
+  aka 'alias2.example.com', 'alias3.example.com'
+end
+
+nginx_proxy 'salias.example.com' do
+  ssl_key 'example.com'
+  aka 'salias1.example.com', ssl_key: 'example.com'
+end
+
+nginx_proxy 'salias-i.example.com' do
+  ssl_key 'example.com'
+  aka 'salias.i.example.com', ssl_key: 'i.example.com'
+end

@@ -45,9 +45,34 @@ describe 'nginx-proxy/definitions/default.rb' do
                 'ssl_certificate_key /path/to/key.pem;'
 
     expect_site 'redirect.example.com',
-                'rewrite ^ https://target.example.com$request_uri? permanent',
+                'rewrite ^ https://target.example.com$request_uri? permanent;',
                 'listen 443 ssl;',
                 'ssl_certificate /etc/ssl/certs/example.com.pem;',
                 'ssl_certificate_key /etc/ssl/private/example.com.key;'
+
+    expect_site 'alias1.example.com',
+                'rewrite ^ http://1alias.example.com$request_uri? permanent;'
+
+    expect_site 'alias2.example.com',
+                'rewrite ^ http://2alias.example.com$request_uri? permanent;'
+
+    expect_site 'alias3.example.com',
+                'rewrite ^ http://2alias.example.com$request_uri? permanent;'
+
+    expect_site 'salias.example.com',
+                'ssl_certificate_key /etc/ssl/private/example.com.key;'
+
+    expect_site 'salias1.example.com',
+                'rewrite ^ https://salias.example.com$request_uri? permanent;',
+                'listen 443 ssl;',
+                'ssl_certificate_key /etc/ssl/private/example.com.key;'
+
+    expect_site 'salias-i.example.com',
+                'ssl_certificate_key /etc/ssl/private/example.com.key;'
+
+    expect_site 'salias.i.example.com',
+                'rewrite ^ https://salias-i.example.com$request_uri? permanent;',
+                'listen 443 ssl;',
+                'ssl_certificate_key /etc/ssl/private/i.example.com.key;'
   end
 end

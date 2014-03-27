@@ -22,4 +22,19 @@ define :nginx_proxy, apache: false, redirect: false do
   end
 
   nginx_site params[:name]
+
+  if params[:aka]
+    params[:aka] = Array(params[:aka])
+    aka_params = params[:aka].last.is_a?(Hash) ? params[:aka].pop : {}
+    aka_params[:redirect] = true
+    aka_params[:url] = "http#{'s' if params[:ssl_key_path]}://#{params[:server_name]}"
+
+    params[:aka].each do |name|
+      nginx_proxy(name) do
+        aka_params.each do |k, v|
+          send(k, v)
+        end
+      end
+    end
+  end
 end
