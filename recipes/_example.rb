@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Examples for the nginx_proxy definition, used in specs
 
 nginx_proxy 'trivial.example.com' do

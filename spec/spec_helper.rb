@@ -9,7 +9,9 @@ module Helpers
       expect(chef_run).to(render_file("/etc/nginx/sites-available/#{name}"))
     else
       contents.each do |content|
-        expect(chef_run).to(render_file("/etc/nginx/sites-available/#{name}").with_content(content))
+        expect(chef_run).to(
+          render_file("/etc/nginx/sites-available/#{name}")
+            .with_content(content))
       end
     end
   end
@@ -21,4 +23,3 @@ RSpec.configure do |config|
   config.version = '12.04'
   config.include Helpers
 end
-

@@ -61,7 +61,7 @@ describe 'nginx-proxy/definitions/default.rb' do
                 'ssl_certificate_key /etc/ssl/private/example.com.key;'
 
     expect_site 'salias.i.example.com',
-                'rewrite ^ https://salias-i.example.com$request_uri? permanent;',
+                'rewrite ^ https://salias-i.example.com$request_uri?',
                 'listen 443 ssl;',
                 'ssl_certificate_key /etc/ssl/private/i.example.com.key;'
   end

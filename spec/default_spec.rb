@@ -35,9 +35,10 @@ describe 'nginx-proxy::default' do
   end
 
   it 'creates proxy given a full spec' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com']['apache'] = true
-    chef_run.node.set['nginx_proxy']['proxies']['example.com']['ssl_key'] = 'example.com'
-    chef_run.node.set['nginx_proxy']['proxies']['example.com']['aka'] = ['old.example.com', ssl_key: 'old.example.com']
+    exmpl = chef_run.node.set['nginx_proxy']['proxies']['example.com']
+    exmpl['apache'] = true
+    exmpl['ssl_key'] = 'example.com'
+    exmpl['aka'] = ['old.example.com', ssl_key: 'old.example.com']
     chef_run.converge(described_recipe)
     expect_site 'example.com',
                 'proxy_pass http://127.0.0.1:81;',
