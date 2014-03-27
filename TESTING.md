@@ -1,6 +1,15 @@
 Testing
 =======
 
+Preparation
+-----
+
+    $ bundle install
+
+And then, to install all cookbooks:
+
+    $ bundle exec berks install
+
 Local
 -----
 
