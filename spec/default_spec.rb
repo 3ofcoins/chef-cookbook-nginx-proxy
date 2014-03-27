@@ -4,6 +4,7 @@ require_relative './spec_helper'
 
 describe 'nginx-proxy::default' do
   let(:chef_run) { ChefSpec::Runner.new }
+  let(:proxies) { chef_run.node.set['nginx_proxy']['proxies'] }
 
   it 'should install nginx' do
     chef_run.converge(described_recipe)
@@ -11,40 +12,43 @@ describe 'nginx-proxy::default' do
   end
 
   it 'creates proxy given a port' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = 8000
+    proxies['example.com'] = 8000
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:8000;'
   end
 
   it 'creates proxy given a port as string' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = '8000'
+    proxies['example.com'] = '8000'
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:8000;'
   end
 
   it 'creates proxy given an URL as string' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = 'http://example.info'
+    proxies['example.com'] =
+      'http://example.info'
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://example.info;'
   end
 
   it 'creates proxy to apache' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = 'apache'
+    proxies['example.com'] = 'apache'
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:81;'
   end
 
   it 'creates proxy to apache from keyword' do
-    chef_run.node.set['nginx_proxy']['proxies']['example.com'] = :apache
+    proxies['example.com'] = :apache
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:81;'
   end
 
   it 'creates proxy given a full spec' do
-    exmpl = chef_run.node.set['nginx_proxy']['proxies']['example.com']
-    exmpl['apache'] = true
-    exmpl['ssl_key'] = 'example.com'
-    exmpl['aka'] = ['old.example.com', ssl_key: 'old.example.com']
+    proxies['example.com']['apache'] = true
+    proxies['example.com']['ssl_key'] = 'example.com'
+    proxies['example.com']['aka'] = [
+      'old.example.com',
+      ssl_key: 'old.example.com'
+    ]
     chef_run.converge(described_recipe)
     expect_site 'example.com',
                 'proxy_pass http://127.0.0.1:81;',
