@@ -22,13 +22,17 @@ define :nginx_proxy, apache: false, redirect: false do
       "#{params[:ssl_key]}.pem")
   end
 
+  # FIXME: maybe use nginx_site's new `template` property?
   template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
     source 'nginx_site.conf.erb'
     variables params
-    notifies :reload, 'service[nginx]'
+    notifies :reload, 'service[nginx]' if ::File.exists?(::File.join(
+        node['nginx']['dir'], 'sites-enabled', params[:name]))
   end
 
-  nginx_site params[:name]
+  nginx_site params[:name] do
+    template false
+  end
 
   if params[:aka]
     params[:aka] = Array(params[:aka])

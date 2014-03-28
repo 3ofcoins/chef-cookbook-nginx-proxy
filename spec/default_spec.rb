@@ -11,7 +11,7 @@ describe 'nginx-proxy::default' do
     expect(chef_run).to include_recipe('nginx::default')
   end
 
-  it 'creates proxy given a port' do
+  it 'creates proxy given a port as a number' do
     proxies['example.com'] = 8000
     chef_run.converge(described_recipe)
     expect_site 'example.com', 'proxy_pass http://127.0.0.1:8000;'
