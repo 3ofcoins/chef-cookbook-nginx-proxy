@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 directory node['apache']['docroot_dir'] do
   recursive true
 end
