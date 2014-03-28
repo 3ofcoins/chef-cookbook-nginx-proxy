@@ -18,6 +18,8 @@ server {
 <%   end -%>
 
 <% end -%>
+<%= Array(@custom_config).join("\n") %>
+
 <% if @redirect -%>
   rewrite ^ <%= @url %>$request_uri? <%= @redirect %>;
 <% else -%>  

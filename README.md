@@ -48,6 +48,8 @@ list, and use `nginx_proxy` in your recipes.
  * `aka` - can be set to one or more aliases that will redirect to the
    proxy. Last parameter may be a hash specifying parameters for
    `nginx_proxy` calls for the aliases (e.g. SSL keys)
+ * `custom_config` - string, or a list of strings (lines), to include
+   verbatim in the configuration.
 
 #### Examples
 

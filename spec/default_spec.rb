@@ -57,4 +57,12 @@ describe 'nginx-proxy::default' do
                 'rewrite ^ https://example.com$request_uri? permanent;',
                 'ssl_certificate_key /etc/ssl/private/old.example.com.key;'
   end
+
+  it 'allows custom code snippets' do
+    proxies['example.com']['apache'] = true
+    proxies['example.com']['custom_config'] = 'client_max_body_size 100M;'
+    chef_run.converge(described_recipe)
+    expect_site 'example.com',
+                'client_max_body_size 100M;'
+  end
 end
