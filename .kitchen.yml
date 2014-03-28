@@ -6,24 +6,17 @@ driver_config:
 platforms:
 - name: ubuntu-12.04
   driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-- name: ubuntu-10.04
-  driver_config:
-    box: opscode-ubuntu-10.04
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
-- name: centos-6.4
-  driver_config:
-    box: opscode-centos-6.4
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-- name: centos-5.9
-  driver_config:
-    box: opscode-centos-5.9
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+    box: opscode_ubuntu-12.04_provisionerless
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box
 
 suites:
-- name: default
+- name: apache
   run_list:
-    - recipe[minitest-handler]
-    - recipe[nginx-proxy-test::default]
-  attributes: {}
+    - recipe[apt]
+    - recipe[nginx-proxy-test]
+  attributes:
+    apache:
+      default_site_enabled: true
+    nginx_proxy:
+      proxies:
+        apache.localdomain: apache
