@@ -1,9 +1,12 @@
 AllCops:
-  Excludes:
+  Exclude:
     - tmp/**
 
 Documentation:
   Enabled: false
 
 ClassAndModuleChildren:
+  Enabled: false
+
+SingleSpaceBeforeFirstArg:
   Enabled: false

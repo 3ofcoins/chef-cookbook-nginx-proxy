@@ -27,7 +27,7 @@ define :nginx_proxy, apache: false, redirect: false do
     source params[:template] || 'nginx_site.conf.erb'
     cookbook params[:cookbook] || 'nginx-proxy'
     variables params
-    notifies :reload, 'service[nginx]' if ::File.exists?(::File.join(
+    notifies :reload, 'service[nginx]' if ::File.exist?(::File.join(
         node['nginx']['dir'], 'sites-enabled', params[:name]))
   end
 
