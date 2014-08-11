@@ -118,7 +118,7 @@ node['nginx_proxy']['proxies']['new.example.com']['aka'] = [
 Attributes
 ----------
 
- * `node['nginx_proxy']['proxies']['…']` -- proxies for data-driven
+ * `node['nginx_proxy']['proxies']['...']` -- proxies for data-driven
    recipe (see above)
  * `node['nginx_proxy']['apache_port']` (default: 81) -- port to have
    Apache listen on when used as a backend
