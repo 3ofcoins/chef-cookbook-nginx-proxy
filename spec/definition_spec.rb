@@ -3,6 +3,10 @@
 require_relative './spec_helper'
 
 describe 'nginx-proxy/definitions/default.rb' do
+  before do
+    stub_command('which nginx').and_return(true)
+    stub_command('/usr/sbin/apache2 -t').and_return(true)
+  end
   cached(:chef_run) { ChefSpec::Runner.new.converge('nginx-proxy::_example') }
 
   it 'should include nginx-proxy and apache2' do

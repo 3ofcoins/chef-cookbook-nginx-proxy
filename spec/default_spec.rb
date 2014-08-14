@@ -3,6 +3,10 @@
 require_relative './spec_helper'
 
 describe 'nginx-proxy::default' do
+  before do
+    stub_command('which nginx').and_return(true)
+    stub_command('/usr/sbin/apache2 -t').and_return(true)
+  end
   let(:chef_run) { ChefSpec::Runner.new }
   let(:proxies) { chef_run.node.set['nginx_proxy']['proxies'] }
 
