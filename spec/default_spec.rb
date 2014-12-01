@@ -7,7 +7,7 @@ describe 'nginx-proxy::default' do
     stub_command('which nginx').and_return(true)
     stub_command('/usr/sbin/apache2 -t').and_return(true)
   end
-  let(:chef_run) { ChefSpec::Runner.new }
+  let(:chef_run) { ChefSpec::SoloRunner.new }
   let(:proxies) { chef_run.node.set['nginx_proxy']['proxies'] }
 
   it 'should install nginx' do

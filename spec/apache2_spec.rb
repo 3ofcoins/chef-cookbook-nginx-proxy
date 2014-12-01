@@ -7,7 +7,7 @@ describe 'nginx-proxy::apache2' do
     stub_command('which nginx').and_return(true)
     stub_command('/usr/sbin/apache2 -t').and_return(true)
   end
-  let(:chef_run) { ChefSpec::Runner.new }
+  let(:chef_run) { ChefSpec::SoloRunner.new }
 
   it 'should install Apache and have it listen on a non-standard port' do
     chef_run.converge(described_recipe)
