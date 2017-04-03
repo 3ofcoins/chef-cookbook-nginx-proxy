@@ -109,7 +109,7 @@ node['nginx_proxy']['proxies']['nagios.example.com'] = :apache
 node['nginx_proxy']['proxies']['site.example.com'] = 4000
 node['nginx_proxy']['proxies']['example.info'] = 'http://example.com'
 node['nginx_proxy']['proxies']['new.example.com']['apache'] = true
-node['nginx_proxy']['proxies']['new.example.com']['ssl_key'] = 'star.example.com
+node['nginx_proxy']['proxies']['new.example.com']['ssl_key'] = 'star.example.com'
 node['nginx_proxy']['proxies']['new.example.com']['aka'] = [
   'old.example.com', 'yet-older.example.com',
   ssl_key: 'star.example.com' ]
