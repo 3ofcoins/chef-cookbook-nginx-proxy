@@ -50,6 +50,8 @@ list, and use `nginx_proxy` in your recipes.
    `nginx_proxy` calls for the aliases (e.g. SSL keys)
  * `custom_config` - string, or a list of strings (lines), to include
    verbatim in the configuration.
+ * `location_config` - string, or a list of strings (lines), to include
+   verbatim in the location configuration.
 
 #### Examples
 
@@ -113,6 +115,10 @@ node['nginx_proxy']['proxies']['new.example.com']['ssl_key'] = 'star.example.com
 node['nginx_proxy']['proxies']['new.example.com']['aka'] = [
   'old.example.com', 'yet-older.example.com',
   ssl_key: 'star.example.com' ]
+node['nginx_proxy']['proxies']['new.example.com']['location_config'] = [
+  "proxy_http_version 1.1;",
+  "proxy_set_header Upgrade $http_upgrade;",
+  "proxy_set_header Connection "upgrade";"]
 ```
 
 Attributes
