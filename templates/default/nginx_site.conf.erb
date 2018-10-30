@@ -3,10 +3,10 @@
 server {
   listen 80;
 <% if @ssl_key_path -%>
-  listen 443 ssl;
+  listen 443 ssl <%= @listen %>;
 <% end -%>
   server_name <%= @server_name %>;
-  access_log <%= node['nginx']['log_dir'] %>/<%= @name %>_access.log;
+  access_log <%= node['nginx']['log_dir'] %>/<%= @name %>_access.log <%= @access_log_opts %>;
 
 <% if @ssl_key_path -%>
   ssl_certificate <%= @ssl_certificate_path %>;
@@ -24,7 +24,36 @@ server {
   rewrite ^ <%= @url %>$request_uri? <%= @redirect %>;
 <% else -%>
   location / {
-    <%= Array(@location_config).join("\n") %>
+<%    if @allow_origin -%>
+    # http://enable-cors.org/server_nginx.html
+    set $cors false;
+    if ($http_origin ~ "<%= @allow_origin %>") { set $cors true; }
+    if ($request_method = OPTIONS ) { set $cors "${cors}_preflight"; }
+    if ($cors = true) {
+      add_header Access-Control-Allow-Origin "$http_origin";
+<%      if @access_control_allow_credentials -%>
+      add_header Access-Control-Allow-Credentials "true";
+<%      end -%>
+    }
+    if ($cors = true_preflight) {
+      add_header Access-Control-Allow-Origin "$http_origin";
+      add_header Access-Control-Allow-Methods "<%= @access_control_allow_methods.join(', ') %>";
+<%      if @access_control_allow_headers -%>
+      add_header Access-Control-Allow-Headers "<%= Array(@access_control_allow_headers).join(', ') %>";
+<%      end -%>
+<%      if @access_control_allow_credentials -%>
+      add_header Access-Control-Allow-Credentials "true";
+<%      end -%>
+<%      if @access_control_max_age -%>
+      add_header Access-Control-Max-Age <%= @access_control_max_age %>;
+<%      end -%>
+      add_header Content-Length 0;
+      add_header Content-Type text/plain;
+      return 204;
+    }
+<%    end -%>
+
+<%= Array(@location_config).join("\n") %>
 
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;

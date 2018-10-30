@@ -22,17 +22,13 @@ define :nginx_proxy, apache: false, redirect: false do
       "#{params[:ssl_key]}.pem")
   end
 
-  # FIXME: maybe use nginx_site's new `template` property?
-  template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
-    source params[:template] || 'nginx_site.conf.erb'
-    cookbook params[:cookbook] || 'nginx-proxy'
-    variables params
-    notifies :reload, 'service[nginx]' if ::File.exist?(::File.join(
-        node['nginx']['dir'], 'sites-enabled', params[:name]))
-  end
+  params[:access_control_allow_methods] = Array(params[:cors_methods] || 'GET')
+  params[:access_control_allow_methods] |= %w'OPTIONS'
 
   nginx_site params[:name] do
-    template false
+    template params[:template] || 'nginx_site.conf.erb'
+    cookbook params[:cookbook] || 'nginx-proxy'
+    variables params
   end
 
   if params[:aka]

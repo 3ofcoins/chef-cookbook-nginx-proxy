@@ -52,6 +52,19 @@ list, and use `nginx_proxy` in your recipes.
    verbatim in the configuration.
  * `location_config` - string, or a list of strings (lines), to include
    verbatim in the location configuration.
+ * `allow_origin` - regular expression of origins to enable CORS
+   for. Note: `*` is not supported in this mechanism, for open CORS
+   use a `custom_config` snippet. If this is set, following parameters
+   can be used to further customize the configuration:
+   - `access_control_allow_credentials` if set to `true`, the
+     `Access-Control-Allow-Credentials` will be set
+   - `access_control_allow_headers` can be set to list of allowed
+     headers
+   - `access_control_allow_methods` can be set to list of allowed
+     methods (defaults to `['GET', 'OPTIONS']`; `OPTIONS` is always
+     added and doesn't need to be specified)
+   - `access_control_max_age` can be set to configure validity of
+     preflight response
 
 #### Examples
 
@@ -132,6 +145,8 @@ Attributes
    -- directory holding private SSL keys
  * `node['nginx_proxy']['ssl_certificate_dir']` (default:
    `/etc/ssl/certificates`) -- directory holding public SSL certificates
+ * `node['nginx_proxy']['nginx_recipe']` (default: `nginx`) -- recipe
+   to include for base nginx setup
 
 Author
 ------

@@ -1,6 +1,12 @@
 Change History
 ==============
 
+0.3.0
+-----
+ - Add `location_config` property (#4)
+ - Add `nginx_proxy.nginx_recipe` attribute
+ - CORS support
+
 0.2.1
 -----
  - Fix template cookbook bug
