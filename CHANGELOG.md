@@ -1,6 +1,10 @@
 Change History
 ==============
 
+0.3.1
+-----
+ - Fix a bug in `access_control_allow_methods` property handling
+
 0.3.0
 -----
  - Add `location_config` property (#4)

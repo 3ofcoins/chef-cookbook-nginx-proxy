@@ -22,7 +22,7 @@ define :nginx_proxy, apache: false, redirect: false do
       "#{params[:ssl_key]}.pem")
   end
 
-  params[:access_control_allow_methods] = Array(params[:cors_methods] || 'GET')
+  params[:access_control_allow_methods] = Array(params[:access_control_allow_methods] || 'GET')
   params[:access_control_allow_methods] |= %w'OPTIONS'
 
   nginx_site params[:name] do
